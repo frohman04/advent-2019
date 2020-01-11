@@ -8,11 +8,11 @@ fn main() {
     let result = std::fs::read_to_string("src/bin/day07.txt")
         .map(|file| {
             let line = file
-                .split("\n")
-                .filter(|line| line.len() > 0)
+                .split('\n')
+                .filter(|line| !line.is_empty())
                 .collect::<Vec<&str>>()[0];
             let code = line
-                .split(",")
+                .split(',')
                 .map(|item| item.parse::<i32>().unwrap())
                 .collect::<Vec<i32>>();
 
@@ -83,11 +83,11 @@ struct Processor {
 }
 
 impl Processor {
-    fn new(code: Vec<i32>) -> Processor {
+    pub fn new(code: Vec<i32>) -> Processor {
         Processor { code, pc: 0 }
     }
 
-    fn execute(&mut self, mut input: VecDeque<i32>) -> (ProcessorState, VecDeque<i32>) {
+    pub fn execute(&mut self, mut input: VecDeque<i32>) -> (ProcessorState, VecDeque<i32>) {
         let mut output: VecDeque<i32> = VecDeque::new();
         let mut state: Option<ProcessorState> = None;
 
@@ -100,9 +100,9 @@ impl Processor {
         while {
             let raw_opcode = self.code[self.pc];
             let opcode = raw_opcode % 100;
-            let param1_imm = raw_opcode % 1000 / 100 == 1;
-            let param2_imm = raw_opcode % 10000 / 1000 == 1;
-            let param3_imm = raw_opcode % 100000 / 10000 == 1;
+            let param1_imm = raw_opcode % 1_000 / 100 == 1;
+            let param2_imm = raw_opcode % 10_000 / 1_000 == 1;
+            let param3_imm = raw_opcode % 100_000 / 10_000 == 1;
 
             let run_again = if opcode == 99 {
                 if debug_pc {

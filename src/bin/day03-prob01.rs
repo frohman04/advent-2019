@@ -4,13 +4,13 @@ fn main() {
     let result = std::fs::read_to_string("src/bin/day03.txt")
         .map(|file| {
             let lines = file
-                .split("\n")
-                .filter(|line| line.len() > 0)
+                .split('\n')
+                .filter(|line| !line.is_empty())
                 .collect::<Vec<&str>>();
             let code = lines
                 .iter()
                 .map(|line| {
-                    line.split(",")
+                    line.split(',')
                         .map(|item| Move::from_text(item))
                         .collect::<Vec<Move>>()
                 })
@@ -48,7 +48,7 @@ fn closest_intersection(wire1: Vec<Move>, wire2: Vec<Move>) -> u32 {
         }
     }
 
-    return best as u32;
+    best as u32
 }
 
 struct Tracer {

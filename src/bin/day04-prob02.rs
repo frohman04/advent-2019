@@ -1,20 +1,17 @@
 fn main() {
-    let min = 264360;
-    let max = 746325;
+    let min = 264_360;
+    let max = 746_325;
 
-    let num_good = (min..=max)
-        .map(validate)
-        .filter(|is_good| is_good.clone())
-        .count();
+    let num_good = (min..=max).map(validate).count();
     println!("{}", num_good);
 }
 
 fn validate(passwd: i32) -> bool {
-    if passwd < 100000 || passwd >= 1000000 {
+    if passwd < 100_000 || passwd >= 1_000_000 {
         return false;
     }
 
-    let mut remaining = passwd.clone();
+    let mut remaining = passwd;
     let mut digits: Vec<i32> = Vec::new();
     while remaining > 0 {
         digits.push(remaining % 10);
@@ -26,26 +23,22 @@ fn validate(passwd: i32) -> bool {
     let mut consecutive_same = false;
     let mut in_group = false;
     let mut group_size = 1;
-    for i in 1..digits.len() {
-        let digit = digits[i];
-
-        if last > digit {
+    for digit in digits.iter().skip(1) {
+        if last > *digit {
             return false;
         }
-        if digit == last {
+        if *digit == last {
             in_group = true;
             group_size += 1;
         } else {
-            if in_group {
-                if group_size == 2 {
-                    consecutive_same = true;
-                }
+            if in_group && group_size == 2 {
+                consecutive_same = true;
             }
             in_group = false;
             group_size = 1;
         }
 
-        last = digit;
+        last = *digit;
     }
 
     consecutive_same || (in_group && group_size == 2)

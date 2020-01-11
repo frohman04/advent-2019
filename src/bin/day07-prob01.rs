@@ -6,11 +6,11 @@ fn main() {
     let result = std::fs::read_to_string("src/bin/day07.txt")
         .map(|file| {
             let line = file
-                .split("\n")
-                .filter(|line| line.len() > 0)
+                .split('\n')
+                .filter(|line| !line.is_empty())
                 .collect::<Vec<&str>>()[0];
             let code = line
-                .split(",")
+                .split(',')
                 .map(|item| item.parse::<i32>().unwrap())
                 .collect::<Vec<i32>>();
 
@@ -49,8 +49,7 @@ fn execute(
     mut input: Vec<i32>,
 ) -> (Vec<i32>, Vec<(usize, i32)>) {
     let mut pc: usize = 0;
-    if init_state.is_some() {
-        let init_state = init_state.unwrap();
+    if let Some(init_state) = init_state {
         code[1] = init_state.noun;
         code[2] = init_state.verb;
     }
@@ -67,9 +66,9 @@ fn execute(
     while {
         let raw_opcode = code[pc];
         let opcode = raw_opcode % 100;
-        let param1_imm = raw_opcode % 1000 / 100 == 1;
-        let param2_imm = raw_opcode % 10000 / 1000 == 1;
-        let param3_imm = raw_opcode % 100000 / 10000 == 1;
+        let param1_imm = raw_opcode % 1_000 / 100 == 1;
+        let param2_imm = raw_opcode % 10_000 / 1_000 == 1;
+        let param3_imm = raw_opcode % 100_000 / 10_000 == 1;
 
         let run_again = if opcode == 99 {
             if debug_pc {
@@ -224,7 +223,7 @@ fn execute(
     (code, output)
 }
 
-fn get_val(code: &Vec<i32>, i: usize, is_imm: bool) -> i32 {
+fn get_val(code: &[i32], i: usize, is_imm: bool) -> i32 {
     if is_imm {
         code[i]
     } else {

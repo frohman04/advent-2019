@@ -1,8 +1,8 @@
 fn main() {
     let fuels = std::fs::read_to_string("src/bin/day01.txt")
         .map(|file| {
-            file.split("\n")
-                .filter(|line| line.len() > 0)
+            file.split('\n')
+                .filter(|line| !line.is_empty())
                 .map(|val| val.parse::<i32>().map(fuel_for).ok().unwrap())
                 .collect::<Vec<i32>>()
         })

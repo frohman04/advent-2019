@@ -2,11 +2,11 @@ fn main() {
     let result = std::fs::read_to_string("src/bin/day02.txt")
         .map(|file| {
             let line = file
-                .split("\n")
-                .filter(|line| line.len() > 0)
+                .split('\n')
+                .filter(|line| !line.is_empty())
                 .collect::<Vec<&str>>()[0];
             let mut code = line
-                .split(",")
+                .split(',')
                 .map(|item| item.parse::<u32>().unwrap())
                 .collect::<Vec<u32>>();
 
