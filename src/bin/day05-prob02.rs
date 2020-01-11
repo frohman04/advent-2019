@@ -2,7 +2,7 @@ fn main() {
     let result = std::fs::read_to_string("src/bin/day05.txt")
         .map(|file| {
             let line = file
-                .split('\n')
+                .lines()
                 .filter(|line| !line.is_empty())
                 .collect::<Vec<&str>>()[0];
             let code = line

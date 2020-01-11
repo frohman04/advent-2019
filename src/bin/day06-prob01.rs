@@ -9,7 +9,7 @@ fn main() {
     let result = std::fs::read_to_string("src/bin/day06.txt")
         .map(|file| {
             let orbits = file
-                .split('\n')
+                .lines()
                 .filter(|line| !line.is_empty())
                 .map(|line| {
                     let pieces = line.split(')').collect::<Vec<&str>>();
