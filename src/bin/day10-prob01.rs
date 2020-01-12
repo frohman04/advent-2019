@@ -38,11 +38,11 @@ fn num_visible(points: &Vec<(usize, usize)>, idx: usize) -> usize {
         .enumerate()
         .filter(|&(i, _)| i != idx)
         .map(|(_, p)| p)
-        {
-            let dir = (base.1 as f32 - point.1 as f32).atan2(base.0 as f32 - point.0 as f32);
-            let hashable = (dir * 1_000f32) as i32;
-            slopes.insert(hashable);
-        }
+    {
+        let dir = (base.1 as f32 - point.1 as f32).atan2(base.0 as f32 - point.0 as f32);
+        let hashable = (dir * 1_000f32) as i32;
+        slopes.insert(hashable);
+    }
 
     slopes.len()
 }
